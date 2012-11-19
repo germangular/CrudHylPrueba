@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+<script src="js/jquery-1.8.2.min.js"></script>
+<script src="js/jquery.mobile-1.2.0.min.js"></script>
+<script src="js/jqm.page.params.js"></script>
+<script src="js/my.js"></script>
+<title>Mi Negocio</title>
+<link rel="stylesheet" href="css/my.css" />
+<style>
+/* App custom styles */
+</style>
+<script>
+var id_actual = "";
+
+$(document).ready(function() {
+	traerListado();
+});
+$("#editar").live('pageshow', function(e) {
+	editarUsuario($.mobile.pageData.id);
+ });
+ 
+$(document).bind("pagebeforechange", function( event, data ) {
+	$.mobile.pageData = (data && data.options && data.options.pageData)
+				   ? data.options.pageData
+				   : null;
+});
+</script>
+</head>
+<body>
+	<!-- /page -----------------------------------------------------------------> 
+	<div data-role="page" id="listado">
+
+		<div data-role="header">
+			<div data-role="navbar">
+                  <ul>
+                       <li><a href="index.html" data-icon="home"
+                                 data-theme="d">Inicio</a></li>
+                       <li><a href="#crear" data-icon="save"
+                                 data-theme="d" class="ui-btn-active">Crear</a></li>
+                  </ul>
+             </div>			
+			<h1>Listado</h1>			
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+		<ul data-role="listview" data-inset="true" id="listview">
+		</ul>
+		
+		<div data-role="popup" id="popupBasic3" class="ui-content">
+				</div>
+		</div>
+		<!-- /content -->
+		<div data-role="footer" class="ui-bar">
+			<a href="javascript:traerListado();" data-role="button" data-icon="refresh">Recargar</a>			
+		</div>
+	</div>
+	
+	<!-- /page -----------------------------------------------------------------> 
+	
+	<div data-role="page" id="editar">
+
+		<div data-role="header">
+			<h1>Editar</h1>
+			<a data-role="button" href="#listado" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left" data-rel="back"> 
+                    Listado
+            </a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+			<label for="id">Numero Id:</label>
+			<input type="text" name="name" id="id" value=""/>
+			<label for="nombre">Nombres:</label>
+			<input type="text" name="name" id="nombre" value=""/>
+			<label for="direccion">Dirección:</label>
+			<input type="text" name="name" id="direccion" value=""/>
+			<label for="telefono">Teléfono:</label>
+			<input type="text" name="name" id="telefono" value=""/>
+				<div data-role="popup" id="popupBasic" class="ui-content">
+				</div>
+		</div>
+		<!-- /content -->
+		<div data-role="footer" class="ui-bar">
+			<a href="javascript:guardarUsuario();" data-role="button" data-icon="save">Guardar</a>
+			<a href="#dialogo" data-rel="dialog" data-transition="pop" data-icon="delete">Eliminar</a>			
+			<a href="javascript:editarUsuario(id_actual);" data-role="button" data-icon="refresh">Deshacer</a>
+		</div>	
+	</div>	
+	<!-- /page -----------------------------------------------------------------> 	
+	<div data-role="page" id="crear">
+		<div data-role="header">
+			<h1>Crear</h1>
+			<a data-role="button" href="#listado" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left" data-rel="back"> 
+                    Listado
+            </a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+			<label for="id">Numero Id:</label>
+			<input type="text" name="name" id="c_id" value=""/>
+			<label for="nombre">Nombres:</label>
+			<input type="text" name="name" id="c_nombre" value=""/>
+			<label for="direccion">Dirección:</label>
+			<input type="text" name="name" id="c_direccion" value=""/>
+			<label for="telefono">Teléfono:</label>
+			<input type="text" name="name" id="c_telefono" value=""/>
+				<div data-role="popup" id="popupBasic2" class="ui-content">
+				</div>
+		</div>
+		<!-- /content -->
+		<div data-role="footer" class="ui-bar">
+			<a href="javascript:crearUsuario();" data-role="button" data-icon="save">Guardar</a>
+		</div>
+	</div>
+	<!-- /page -----------------------------------------------------------------> 	
+	<div data-role="page" id="dialogo">
+		<div data-role="header">
+			<h1>¿Esta seguro de eliminar registro?</h1>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content">
+		    <a href="javascript:eliminarUsuario();" data-role="button" data-icon="delete">Aceptar</a>
+			<a href="#editar" data-role="button" data-icon="cancel" data-rel="back">Cancelar</a>
+		</div>
+		<!-- /content -->
+	</div>
+	<!-- /page -----------------------------------------------------------------> 	
+	</body>
+</html>
